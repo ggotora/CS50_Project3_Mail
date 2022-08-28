@@ -34,15 +34,15 @@ function load_mailbox(mailbox) {
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
   if (mailbox === 'inbox'){
-    fetchEmails(`emails/${mailbox}`)
+    fetchEmails(`emails/${mailbox}`, mailbox)
   }
 
   if (mailbox === 'sent'){
-    fetchEmails(`emails/${mailbox}`)
+    fetchEmails(`emails/${mailbox}`, mailbox)
   }
 
   if (mailbox === 'archived'){
-    fetchEmails(`emails/${mailbox}`)
+    fetchEmails(`emails/${mailbox}`, mailbox)
   }
   
 }
@@ -68,28 +68,32 @@ function postEmails(e){
   });
 }
 
-function fetchEmails(mail){
+function fetchEmails(mail, mailbox){
   fetch(mail)
 .then(response => response.json())
 .then(emails => {
     // Print emails
-    const fetchEmailDiv = document.createElement('div')
-    fetchEmailDiv.innerHTML =
-      `
-      <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            One of three columns
-          </div>
-          <div class="col-sm">
-            One of three columns
-          </div>
-          <div class="col-sm">
-            One of three columns
-          </div>
+    emails.forEach(email => {
+      const fetchEmailDiv = document.createElement('div')
+      fetchEmailDiv.innerHTML =
+        `
+        <div class="container">
+          <a href="#" class="row shadow-sm p-2 my-4 bg-white rounded m-0">
+            <div class="col-sm">
+              ${mailbox == 'sent' ? email.recipients : email.sender}
+            </div>
+            <div class="col-sm">
+              ${email.subject}
+            </div>
+            <div class="col-sm">
+              ${email.timestamp}
+            </div>
+          </a>
         </div>
-      </div>
-      `
+        `
+        document.querySelector('#emails-view').append(fetchEmailDiv)
+      
+    });
 
     });
 }
