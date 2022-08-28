@@ -69,5 +69,27 @@ function postEmails(e){
 }
 
 function fetchEmails(mail){
-  console.log('ad')
+  fetch(mail)
+.then(response => response.json())
+.then(emails => {
+    // Print emails
+    const fetchEmailDiv = document.createElement('div')
+    fetchEmailDiv.innerHTML =
+      `
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            One of three columns
+          </div>
+          <div class="col-sm">
+            One of three columns
+          </div>
+          <div class="col-sm">
+            One of three columns
+          </div>
+        </div>
+      </div>
+      `
+
+    });
 }
