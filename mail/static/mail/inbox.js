@@ -77,8 +77,9 @@ function fetchEmails(mail, mailbox){
       const fetchEmailDiv = document.createElement('div')
       fetchEmailDiv.innerHTML =
         `
+        <a href="#">
         <div class="container">
-          <a href="#" class="row shadow-sm p-2 my-4 bg-white rounded m-0">
+          <div class="row shadow-sm p-2 my-4 ${email.read ? 'bg-secondary text-light': 'bg-white'} rounded">
             <div class="col-sm">
               ${mailbox == 'sent' ? email.recipients : email.sender}
             </div>
@@ -88,12 +89,46 @@ function fetchEmails(mail, mailbox){
             <div class="col-sm">
               ${email.timestamp}
             </div>
-          </a>
+          </div>
         </div>
+        </a>
         `
         document.querySelector('#emails-view').append(fetchEmailDiv)
+        fetchEmailDiv.addEventListener('click', () => {
+           readEmail(email)
+        })
       
     });
 
     });
+}
+
+function readEmail(email){
+  document.querySelector('#emails-view').style.display = 'none';
+  const readEmailDiv = document.createElement('div')
+  readEmailDiv.innerHTML =
+    `
+      <div><span class="font-weight-bold">From:</span> ${email.sender}</div>
+      <div><span class="font-weight-bold">To:</span> ${email.recipients}</div>
+      <div><span class="font-weight-bold">Subject:</span> ${email.subject}</div>
+      <div><span class="font-weight-bold">Timestamp:</span> ${email.timestamp}</div>
+      <button id="reply" class="btn btn-sm btn-outline-primary" >Reply</button>
+
+    `
+  document.querySelector('#single-email-view').append(readEmailDiv)
+  document.querySelector('#reply').addEventListener('click', () => {
+    showEmailForm(email)
+  })
+}
+
+function showEmailForm(mail){
+  compose_email()
+  document.querySelector('#compose-recipients').value = mail.sender;
+  document.querySelector('#compose-subject').value = `Re: ${mail.subject}`;
+  document.querySelector('#compose-body').value = 
+  `On ${mail.timestamp} ${mail.sender} wrote:
+  ${mail.body}
+  `;
+
+  
 }
