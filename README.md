@@ -51,7 +51,7 @@ Pre-fill the body of the email with a line like "On Jan 1 2020, 12:00 AM foo@exa
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](issues/).
+Feel free to check the [issues page](https://github.com/ggotora/CS50_Project3_Mail/issues/1).
 
 ## Show your support
 
