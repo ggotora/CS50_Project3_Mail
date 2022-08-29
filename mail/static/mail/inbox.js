@@ -46,7 +46,7 @@ function load_mailbox(mailbox) {
     fetchEmails(`emails/${mailbox}`, mailbox)
   }
 
-  if (mailbox === 'archived'){
+  if (mailbox === 'archive'){
     fetchEmails(`emails/${mailbox}`, mailbox)
   }
   
@@ -136,6 +136,10 @@ function readEmail(email){
     showEmailForm(email)
 
   })
+  document.querySelector('#archive').addEventListener('click', () => {
+    archiveEmail(email)
+
+  })
 }
 
 function showEmailForm(mail){
@@ -151,13 +155,33 @@ function showEmailForm(mail){
 }
 
 function markAsRead(mail){
-  console.log(mail.read)
-  if (!mail.read){
   fetch(`/emails/${mail.id}`, {
     method: 'PUT',
     body: JSON.stringify({
         read: true
     })
   })
+
 }
+
+function archiveEmail(mail){
+  console.log(mail.archived)
+  if (mail.archived){
+    fetch(`/emails/${mail.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          archived: false
+      })
+    })
+
+  }else {
+    fetch(`/emails/${mail.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          archived : true
+      })
+    })
+  }
+  location.reload()
+
 }
