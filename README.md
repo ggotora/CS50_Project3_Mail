@@ -1,6 +1,6 @@
-# cs50_commerce
-Design an eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on those listings, and add listings to a “watchlist.”
-![](commerce.png)
+# cs50_Mail
+Design a front-end for an email client that makes API calls to send and receive emails.
+![](inbox.png)
 
 
 ### Specification
