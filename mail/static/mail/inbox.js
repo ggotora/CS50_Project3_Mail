@@ -102,7 +102,7 @@ function fetchEmails(mail, mailbox){
         fetchEmailDiv.addEventListener('click', () => {
           document.querySelector('#emails-view').style.display = 'none';
            markAsRead(email)
-           readEmail(email)
+           readEmail(email, mailbox)
         })
       
     });
@@ -110,22 +110,24 @@ function fetchEmails(mail, mailbox){
     });
 }
 
-function readEmail(email){
+function readEmail(email, mailbox){
   // Reset single-email-view markup
+  console.log('jjjjj')
   document.querySelector('#single-email-view').innerHTML = '';
   const readEmailDiv = document.createElement('div')
+  
   readEmailDiv.innerHTML =
     `
       <div><span class="font-weight-bold">From:</span> ${email.sender}</div>
       <div><span class="font-weight-bold">To:</span> ${email.recipients}</div>
       <div><span class="font-weight-bold">Subject:</span> ${email.subject}</div>
-      <div><span class="font-weight-bold">Timestamp:</span> ${email.timestamp}</div>
+      <div class="mb-2"><span class="font-weight-bold">Timestamp:</span> ${email.timestamp}</div>
       <button id="reply" class="btn btn-sm btn-outline-primary" >Reply</button>
       <button id="archive" class="btn btn-sm btn-outline-primary" >${email.archived ? "Remove from archived?": "Archive Email?"}</button>
+      <div class="my-4">${email.body}</div>
+      `
 
-    `
   document.querySelector('#single-email-view').style.display = 'block';
-  
   document.querySelector('#single-email-view').append(readEmailDiv)
 
 
