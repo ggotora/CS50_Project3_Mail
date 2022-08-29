@@ -116,7 +116,10 @@ function readEmail(email){
 
     `
   document.querySelector('#single-email-view').append(readEmailDiv)
+  
   document.querySelector('#reply').addEventListener('click', () => {
+    // reset readEmail page
+    document.querySelector('#single-email-view').innerHTML = '';
     showEmailForm(email)
   })
 }
