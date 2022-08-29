@@ -29,12 +29,17 @@ function load_mailbox(mailbox) {
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#single-email-view').style.display = 'none';
+
+  
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
 
   if (mailbox === 'inbox'){
     fetchEmails(`emails/${mailbox}`, mailbox)
+    
+
   }
 
   if (mailbox === 'sent'){
@@ -79,7 +84,7 @@ function fetchEmails(mail, mailbox){
         `
         <a href="#">
         <div class="container">
-          <div class="row shadow-sm p-2 my-4 ${email.read ? 'bg-secondary text-light': 'bg-white'} rounded">
+          <div class="row shadow-sm p-2 my-2 ${email.read ? 'bg-secondary text-light': 'bg-white'} rounded">
             <div class="col-sm">
               ${mailbox == 'sent' ? email.recipients : email.sender}
             </div>
@@ -95,6 +100,8 @@ function fetchEmails(mail, mailbox){
         `
         document.querySelector('#emails-view').append(fetchEmailDiv)
         fetchEmailDiv.addEventListener('click', () => {
+          document.querySelector('#emails-view').style.display = 'none';
+           markAsRead(email)
            readEmail(email)
         })
       
@@ -104,7 +111,8 @@ function fetchEmails(mail, mailbox){
 }
 
 function readEmail(email){
-  document.querySelector('#emails-view').style.display = 'none';
+  // Reset single-email-view markup
+  document.querySelector('#single-email-view').innerHTML = '';
   const readEmailDiv = document.createElement('div')
   readEmailDiv.innerHTML =
     `
@@ -113,14 +121,20 @@ function readEmail(email){
       <div><span class="font-weight-bold">Subject:</span> ${email.subject}</div>
       <div><span class="font-weight-bold">Timestamp:</span> ${email.timestamp}</div>
       <button id="reply" class="btn btn-sm btn-outline-primary" >Reply</button>
+      <button id="archive" class="btn btn-sm btn-outline-primary" >${email.archived ? "Remove from archived?": "Archive Email?"}</button>
 
     `
+  document.querySelector('#single-email-view').style.display = 'block';
+  
   document.querySelector('#single-email-view').append(readEmailDiv)
+
+
   
   document.querySelector('#reply').addEventListener('click', () => {
     // reset readEmail page
     document.querySelector('#single-email-view').innerHTML = '';
     showEmailForm(email)
+
   })
 }
 
@@ -134,4 +148,16 @@ function showEmailForm(mail){
   `;
 
   
+}
+
+function markAsRead(mail){
+  console.log(mail.read)
+  if (!mail.read){
+  fetch(`/emails/${mail.id}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+        read: true
+    })
+  })
+}
 }
