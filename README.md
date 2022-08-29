@@ -1,6 +1,6 @@
-# cs50_Mail
+# CS50_Mail
 Design a front-end for an email client that makes API calls to send and receive emails.
-![](inbox.png)
+![](mail/inbox.png)
 
 
 ### Specification
@@ -33,8 +33,8 @@ Pre-fill the subject line. If the original email had a subject line of foo, the 
 Pre-fill the body of the email with a line like "On Jan 1 2020, 12:00 AM foo@example.com wrote:" followed by the original text of the email.
 ## Built With
 
-- Django4, Python
-- Bootstrap 4, Font Awesome
+- Django4, Python, Javascript
+- Bootstrap 
 - HTML 5
 - CSS3
 ## YouTube Demo
