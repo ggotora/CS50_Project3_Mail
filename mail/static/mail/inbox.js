@@ -149,6 +149,7 @@ function showEmailForm(mail){
   document.querySelector('#compose-body').value = 
   `On ${mail.timestamp} ${mail.sender} wrote:
   ${mail.body}
+  
   `;
 
   
