@@ -113,7 +113,6 @@ function fetchEmails(mail, mailbox){
 
 function readEmail(email, mailbox){
   // Reset single-email-view markup
-  console.log('jjjjj')
   document.querySelector('#single-email-view').innerHTML = '';
   const readEmailDiv = document.createElement('div')
   
@@ -131,8 +130,6 @@ function readEmail(email, mailbox){
   document.querySelector('#single-email-view').style.display = 'block';
   document.querySelector('#single-email-view').append(readEmailDiv)
 
-
-  
   document.querySelector('#reply').addEventListener('click', () => {
     // reset readEmail page
     document.querySelector('#single-email-view').innerHTML = '';
