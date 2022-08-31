@@ -39,7 +39,7 @@ Pre-fill the body of the email with a line like "On Jan 1 2020, 12:00 AM foo@exa
 - CSS3
 ## YouTube Demo
 
-[Video_Link](https://youtu.be/gAsqEiqUhLY)
+[Video_Link](https://www.youtube.com/watch?v=FvZ_NFwxz4M)
 
 ## Author
 
